@@ -5,11 +5,18 @@ import FoodBox from './components/FoodBox';
 import foods from './foods.json';
 import AddFoodItem from './components/AddFoodItem';
 import Searchbar from './components/Searchbar';
+import 'antd/dist/antd.css';
 
 function App() {
   const [foodItem, setFoodItem] = useState(foods);
   const [searchFoods, setSearchFoods] = useState(foodItem);
+  const [showFoods, setShowFoods] = useState(foodItem);
   console.log(foodItem);
+
+  const toggleShow = () => {
+    console.log(showFoods);
+    setShowFoods(!showFoods);
+  };
 
   const deleteFood = (foodName) => {
     const filteredFoods = foodItem.filter((food) => {
@@ -32,7 +39,11 @@ function App() {
 
   return (
     <div className="App">
-      <AddFoodItem FunctionAddFood={FunctionAddFood} />
+      <button onClick={toggleShow}>
+        {showFoods ? 'Hide Form' : 'Add New Food'}
+      </button>
+
+      {showFoods && <AddFoodItem FunctionAddFood={FunctionAddFood} />}
       <Searchbar searchFilter={searchFilter} />
       <h2>Food List</h2>
 
